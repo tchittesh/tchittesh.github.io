@@ -1,0 +1,153 @@
+body {
+  background-color: #CCCDFF;
+  font-family: "Thasadith", sans-serif;
+}
+
+.main-page {
+  height: 100vh;
+  padding-top: 100px;
+}
+
+.page {
+  padding-right: 10rem;
+  padding-left: 10rem;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+.purplehighlight {
+  color: #6200FF;
+}
+
+.intro {
+  font-family: 'Thasadith', sans-serif;
+  font-size: 3rem;
+}
+
+.subintro {
+  font-family: 'Thasadith', sans-serif;
+  font-size: 1.75rem;
+}
+
+.intro-icon {
+  color: #000000;
+  font-size: 2rem;
+  padding-right: 15px;
+  transition: all .3s ease-in-out;
+}
+
+.intro-icon:hover,
+.intro-icon:focus,
+.intro-icon:active,
+.intro-icon.active {
+  color: #6200FF;
+}
+
+.intro-email {
+  color: #000000;
+  font-size: 1.25rem;
+  padding-right: 15px;
+  transition: all .3s ease-in-out;
+}
+
+.intro-email:hover,
+.intro-email:focus,
+.intro-email:active,
+.intro-email.active {
+  color: #6200FF;
+}
+
+.normal-text {
+  font-size: 1rem;
+}
+
+.fade-up {
+  opacity: 0;
+  position: relative;
+  top: 30px;
+}
+
+.fade-left {
+  opacity: 0;
+  position: relative;
+  left: 50px;
+}
+
+#bootstrap-overrides a {
+  text-decoration: none;
+}
+
+#bootstrap-overrides .navbar {
+  font-family: "Alegreya Sans", sans-serif;
+}
+
+#bootstrap-overrides .nav-link {
+  display: block;
+  padding: 0.5rem 1rem;
+}
+
+#bootstrap-overrides .navbar {
+  font-size: 1.25rem;
+}
+
+#bootstrap-overrides .navbar .homelink {
+  font-family: "Montserrat", sans-serif;
+  font-size: 2rem;
+}
+
+#bootstrap-overrides .nav-item a {
+  transition: all .3s ease-in-out;
+  color: #A8ABFF;
+}
+
+#bootstrap-overrides .nav-item .active,
+#bootstrap-overrides .nav-item a:hover {
+  transition: all .3s ease-in-out;
+  color: #ffffff;
+  /* text-decoration: underline; */
+}
+
+#bootstrap-overrides .card {
+  background-color: #E0E1FF;
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  /* height: 11rem; */
+}
+
+#bootstrap-overrides .card-proj {
+  background-color: #F0F0FF;
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  /* height: 11rem; */
+}
+
+#bootstrap-overrides .card-link:hover {
+  text-decoration: none;
+  outline: solid thin;
+  outline-offset: .25rem;
+  transition: all .1s ease-in-out;
+}
+
+#bootstrap-overrides .card-link {
+  color: #6200FF;
+  text-decoration: none;
+  transition: all .3s ease-in-out;
+}
+
+/* #bootstrap-overrides .card-img-top {
+  filter: hue-rotate(180deg);
+  transition: all .8s ease-in-out;
+}
+
+#bootstrap-overrides .card-img-top:hover {
+  filter: hue-rotate(0deg);
+  transition: all .8s ease-in-out;
+} */
+
+/* #bootstrap-overrides hr {
+  border-top: 1px solid rgba(100, 0, 255, 0.3);
+} */
