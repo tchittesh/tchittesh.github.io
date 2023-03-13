@@ -1,0 +1,197 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="StyleSheet" href="./index.css" type="text/css" media="all" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Thasadith:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/gh/pcooksey/bibtex-js@1.0.0/src/bibtex_js.min.js"></script>
+  <bibtex src="references.bib"></bibtex>
+  <title>LZU: Learning to Zoom and Unzoom</title>
+</head>
+
+<body>
+  <div class="content content-title" style="text-align: center">
+    <div>
+      <h1>Learning to Zoom and Unzoom</h1>
+      <span style="font-size: 20px">CVPR 2023</span>
+    </div>
+    <table align="center" style="width: 100%; text-align: center; table-layout: fixed; padding-top: 30px;">
+      <tr>
+        <th>
+          <a href="https://tchittesh.github.io/">Chittesh Thavamani</a>
+        </th>
+        <th>
+          <a href="https://mtli.github.io/">Mengtian Li</a>
+        </th>
+        <th>
+          <a href="https://www.francescoferroni.com/">Francesco Ferroni</a>
+        </th>
+        <th>
+          <a href="http://www.cs.cmu.edu/~deva/">Deva Ramanan</a>
+        </th>
+      </tr>
+      <tr style="font-size: 12px; vertical-align: top;">
+        <th>Carnegie Mellon University</th>
+        <th>Carnegie Mellon University</th>
+        <th>Argo AI</th>
+        <th>Carnegie Mellon University<br>Argo AI</th>
+      </tr>
+    </table>
+    <table align="center" style="width: 33%; text-align: center; table-layout: fixed; padding-top: 30px;">
+      <tr style="vertical-align: bottom;">
+        <th>
+          <a href="TODO">
+            <img src="./doc.svg" alt="paper" width="48px" style="padding-bottom: 10px;" />
+            <br>
+            Paper
+          </a>
+        </th>
+        <th>
+          <a href="TODO">
+            <img src="./github-mark.svg" alt="code" width="48px" style="padding-bottom: 10px;" />
+            <br>
+            Code
+          </a>
+        </th>
+      </tr>
+    </table>
+  </div>
+
+  <div class="content">
+    <figure style="
+          font-weight: normal;
+          margin: 0px;
+          padding: 0px;
+          border: 0px;
+        ">
+      <div style="display: flex;">
+        <div style="flex: 36%; padding-right: 15px;">
+          <img src="./demo.gif" width="100%" alt="demo" />
+        </div>
+        <div style="flex: 64%">
+          <img src="./demo.png" width="100%" alt="teaser" />
+        </div>
+      </div>
+      <!-- <p>
+        TODO
+      </p> -->
+    </figure>
+  </div>
+  <div class="content">
+    <h2>TLDR</h2>
+    <h3>
+      LZU is a highly flexible (model- and task-agnostic) method to apply spatial attention to neural nets.
+    </h3>
+  </div>
+  <div class="content">
+    <h2>Abstract</h2>
+    <p>
+      Many perception systems in mobile computing, autonomous navigation, and AR/VR face strict compute constraints that
+      are particularly challenging for high-resolution input images. Previous works propose nonuniform downsamplers that
+      "learn to zoom" on salient image regions, reducing compute while retaining task-relevant image information.
+      However, for tasks with spatial labels (such as 2D/3D object detection and semantic segmentation), such
+      distortions may harm performance. In this work (LZU), we "learn to zoom" in on the input image, compute spatial
+      features, and then "unzoom" to revert any deformations. To enable efficient and differentiable unzooming, we
+      approximate the zooming warp with a piecewise bilinear mapping that is invertible. LZU can be applied to any task
+      with 2D spatial input and any model with 2D spatial features, and we demonstrate this versatility by evaluating on
+      a variety of tasks and datasets: object detection on Argoverse-HD<sup>6</sup>, semantic segmentation on
+      Cityscapes<sup>5</sup>, and
+      monocular 3D object detection on NuScenes<sup>4</sup>. Interestingly, we observe boosts in performance even when
+      high-resolution sensor data is unavailable, implying that LZU can be used to "learn to upsample" as well.
+    </p>
+  </div>
+
+  <div class="content">
+    <h2>Results</h2>
+    <p>
+      LZU generalizes well to 2D object detection, semantic segmentation, and monocular 3D object detection.
+      In all cases, LZU
+      achieves a better cost-performance tradeoff than the uniform sampling baseline, while being competitive with
+      task-specific methods like <a href="https://mtli.github.io/fovea/">FOVEA</a><sup>2</sup>, <a
+        href="https://arxiv.org/abs/1907.07156">ES</a><sup>1</sup>, and <a
+        href="https://lxasqjc.github.io/learn-downsample.github.io/">LDS</a><sup>3</sup>.
+      <img src="./results.png" width="100%" alt="qualitative results" style="padding: 10px 0px;" />
+      <br>
+      <br>
+      Below is a visualization of how LZU perceives the world and the corresponding predictions, for monocular 3D object
+      detection.
+      <img src="./nuscenes.gif" width="100%" alt="qualitative results" style="padding-top: 10px;" />
+
+    </p>
+  </div>
+
+  <!-- 
+  <div class="content">
+    <h2>Citation</h2>
+
+  </div> -->
+
+  <div class="content">
+    <h2>References</h2>
+    <div class="bibtex_structure">
+      <!-- <div class="group year" extra="DESC number"> -->
+      <!-- <div class="sort title" extra="DESC string"></div> -->
+      <div class="sort title" extra="ASC string">
+        <div class="templates"></div>
+      </div>
+    </div>
+    <!-- <div class="bibtex_structure">
+      <div class="sort title" extra="DESC string">
+        <div class="templates">
+      </div>
+    </div> -->
+    <ol>
+      <div id="bibtex_display">
+        <div class="bibtex_template">
+          <li class="references">
+            <div class="if author">
+              <!-- <span class="if author"><span class="author"></span>. </span> -->
+              <span class="title" style="font-weight: bold;"></span>.
+              <span class="author"></span>.
+              <span class="if booktitle">
+                In <span class="booktitle" style="font-style: italic;"></span>,
+              </span>
+              <span class="if journal">
+                <span class="journal"></span>,
+              </span>
+              <span class="if pages">
+                pages <span class="pages"></span>,
+              </span>
+              <span class="if year">
+                <span class="year"></span>.
+              </span>
+              <span class="if url" style="margin-left: 20px">
+                <a class="url" style="color:black; font-size:10px">(view online)</a>
+              </span>
+            </div>
+            <div style="margin-left: 10px; margin-bottom:5px;">
+            </div>
+          </li>
+        </div>
+      </div>
+    </ol>
+  </div>
+
+  <div class="content">
+    <h2>Acknowledgments</h2>
+    <p>
+      This work was supported by the
+      <a href="https://labs.ri.cmu.edu/argo-ai-center/">CMU Argo AI Center for Autonomous Vehicle Research</a>.
+    </p>
+  </div>
+
+  <div style="text-align: center; font-size: small;">
+    Website template adapted from <a href="https://peiyunh.github.io/ff/index.html">Peiyun Hu</a>.
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+body {
+  font-family: "Thasadith", "Verdana", "Helvetica", sans-serif;
+  background-color: #fff;
+  font-size: 15px;
+}
+
+.content {
+  width: 800px;
+  padding: 25px 25px;
+  margin: 25px auto;
+  border-radius: 20px;
+  background-color: #f2f2f2;
+}
+
+.content-title {
+  background-color: inherit;
+  margin-top: 5px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+  color: #0f4d92;
+}
+
+.anchor {
+  color: inherit;
+}
+
+#authors {
+  text-align: center;
+}
+
+#conference {
+  text-align: center;
+  font-style: italic;
+}
+
+#authors a {
+  font-weight: normal;
+  margin: 0 10px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 35px;
+  font-weight: bold;
+  font-family: "Montserrat", "Verdana", "Helvetica", sans-serif;
+  line-height: 30%;
+}
+
+h2 {
+  font-size: 25px;
+  padding: 0;
+  margin: 10px;
+  font-family: "Lato", "Verdana", "Helvetica", sans-serif;
+}
+
+h3 {
+  font-size: 18px;
+  padding: 0;
+  margin: 10px;
+  font-family: "Lato", "Verdana", "Helvetica", sans-serif;
+  font-weight: 300;
+}
+
+p {
+  line-height: 130%;
+  margin: 10px;
+}
+
+li {
+  margin: 10px 0;
+}
+
+ol {
+  padding-inline-start: 30px;
+  counter-reset: list;
+}
+
+li.references {
+  list-style: none;
+  counter-increment: list;
+}
+
+li.references::marker {
+  content: "[" counter(list) "]\a0";
+}
+
+sup {
+  vertical-align: baseline;
+  position: relative;
+  bottom: 0.33em;
+}
+
+.samples {
+  float: left;
+  width: 50%;
+  text-align: center;
+}
+
+.cond {
+  float: left;
+  margin: 0 40px;
+}
+
+.cond-container {
+  width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
