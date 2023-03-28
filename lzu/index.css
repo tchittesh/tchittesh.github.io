@@ -71,6 +71,11 @@ p {
   margin: 10px;
 }
 
+pre {
+  font-size: smaller;
+  margin: 20px;
+}
+
 li {
   margin: 10px 0;
 }
