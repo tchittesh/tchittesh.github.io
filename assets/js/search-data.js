@@ -23,21 +23,25 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/publications/";
           },
-        },{id: "nav-projects",
-          title: "projects",
-          description: "page under construction :construction:",
-          section: "Navigation",
-          handler: () => {
-            window.location.href = "/projects/";
-          },
         },{id: "nav-cv",
           title: "cv",
           description: "page under construction :construction:",
           section: "Navigation",
           handler: () => {
-            window.location.href = "/cv/";
+            window.location.href = "/assets/pdf/cv.pdf";
           },
-        },{
+        },{id: "post-unpacking-the-log-odds-update-rule",
+        
+          title: "Unpacking the Log Odds Update Rule",
+        
+        description: "Developing intuition for the inverse sensor model and the prior term, plus notes on practical usage",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/log-odds/";
+          
+        },
+      },{
         id: 'social-email',
         title: 'email',
         section: 'Socials',
