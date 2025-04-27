@@ -10,7 +10,7 @@ contact_note:
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
   A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 footer_text: >
-  Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
+  Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme and <a href="https://catppuccin.com/">catppuccin</a> colors.
 keywords: jekyll, jekyll-theme, academic-website, portfolio-website # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: ⚛️ # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
@@ -197,6 +197,7 @@ exclude:
   - _pages/profiles.md
   - _pages/dropdown.md
   - _pages/teaching.md
+  - _pages/projects.md
   - assets/img/book_covers/the_godfather.jpg
   - assets/img/publication_preview/brownian-motion.gif
   - assets/img/publication_preview/wave-mechanics.gif

@@ -6,8 +6,8 @@ subtitle: <a href='https://www.flyzipline.com/'>Perception Software Engineer @ Z
 
 profile:
   align: right
-  image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
+  image: profile.jpeg
+  image_circular: true # crops the image to make it circular
   more_info:
 
 selected_papers: true # includes a list of papers marked as "selected={true}"
@@ -24,7 +24,6 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-page under construction :construction:
 
 <!-- Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder. -->
 
