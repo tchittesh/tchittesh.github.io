@@ -30,7 +30,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/assets/pdf/cv.pdf";
           },
-        },{id: "post-unpacking-the-log-odds-update-rule",
+        },{id: "post-interactive-multi-view-stereo-simulator",
+        
+          title: "Interactive Multi-View Stereo Simulator",
+        
+        description: "Explore how 3D reconstruction uncertainties change with varying camera parameters and configurations",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/stereo-simulator/";
+          
+        },
+      },{id: "post-unpacking-the-log-odds-update-rule",
         
           title: "Unpacking the Log Odds Update Rule",
         
@@ -41,7 +52,13 @@ ninja.data = [{
             window.location.href = "/blog/2025/log-odds/";
           
         },
-      },{
+      },{id: "news-awarded-the-2025-nsf-graduate-research-fellowship",
+          title: 'Awarded the 2025 NSF Graduate Research Fellowship',
+          description: "",
+          section: "News",},{id: "news-serving-as-a-reviewer-for-neurips-2025",
+          title: 'Serving as a reviewer for NeurIPS 2025',
+          description: "",
+          section: "News",},{
         id: 'social-email',
         title: 'email',
         section: 'Socials',
