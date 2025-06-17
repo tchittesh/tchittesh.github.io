@@ -23,6 +23,13 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/publications/";
           },
+        },{id: "nav-projects",
+          title: "projects",
+          description: "side quests",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
         },{id: "nav-cv",
           title: "cv",
           description: "page under construction :construction:",
@@ -58,7 +65,12 @@ ninja.data = [{
           section: "News",},{id: "news-serving-as-a-reviewer-for-neurips-2025",
           title: 'Serving as a reviewer for NeurIPS 2025',
           description: "",
-          section: "News",},{
+          section: "News",},{id: "projects-scylla-keyboard",
+          title: 'scylla keyboard',
+          description: "a split ergonomic curved mechanical keyboard",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/scylla_keyboard/";
+            },},{
         id: 'social-email',
         title: 'email',
         section: 'Socials',
