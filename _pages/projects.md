@@ -2,10 +2,10 @@
 layout: page
 title: projects
 permalink: /projects/
-description: "page under construction :construction:"
+description: side quests
 nav: true
 nav_order: 3
-display_categories: []
+display_categories: [random]
 horizontal: false
 ---
 

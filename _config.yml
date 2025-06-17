@@ -197,7 +197,6 @@ exclude:
   - _pages/profiles.md
   - _pages/dropdown.md
   - _pages/teaching.md
-  - _pages/projects.md
   - assets/img/book_covers/the_godfather.jpg
   - assets/img/publication_preview/brownian-motion.gif
   - assets/img/publication_preview/wave-mechanics.gif
