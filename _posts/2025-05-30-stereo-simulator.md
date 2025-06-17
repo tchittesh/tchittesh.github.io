@@ -44,6 +44,7 @@ $$\frac{2B \cdot f}{2\delta + \epsilon} \leq D \leq \frac{2B \cdot f}{2\delta - 
 That is, doubling the baseline $B$ has the same effect as halving the uncertainty $\epsilon$ in our disparity measurement.
 
 Similarly, one can show that:
+
 - doubling the focal length $f$ has the same effect as doubling the uncertainty $\epsilon$
 - and doubling the depth $D$ of the observed point has the same effect as doubling the uncertainty $\epsilon$.
 
