@@ -65,7 +65,12 @@ ninja.data = [{
           section: "News",},{id: "news-serving-as-a-reviewer-for-neurips-2025",
           title: 'Serving as a reviewer for NeurIPS 2025',
           description: "",
-          section: "News",},{id: "projects-scylla-keyboard",
+          section: "News",},{id: "projects-phone-mount",
+          title: 'phone mount',
+          description: "custom fitted for mophie charging puck and my mini cooper",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/car_phone_mount/";
+            },},{id: "projects-scylla-keyboard",
           title: 'scylla keyboard',
           description: "a split ergonomic curved mechanical keyboard",
           section: "Projects",handler: () => {
