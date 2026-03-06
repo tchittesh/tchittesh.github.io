@@ -37,7 +37,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/assets/pdf/cv.pdf";
           },
-        },{id: "post-interactive-multi-view-stereo-simulator",
+        },{id: "post-understanding-birdcalls-data-collection-prototype",
+        
+          title: "Understanding Birdcalls: Data Collection Prototype",
+        
+        description: "Setting up a camera and microphone array to study backyard animal social behavior",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/understanding-birdcalls-data-collection-prototype/";
+          
+        },
+      },{id: "post-interactive-multi-view-stereo-simulator",
         
           title: "Interactive Multi-View Stereo Simulator",
         
@@ -65,6 +76,9 @@ ninja.data = [{
           section: "News",},{id: "news-serving-as-a-reviewer-for-neurips-2025",
           title: 'Serving as a reviewer for NeurIPS 2025',
           description: "",
+          section: "News",},{id: "news-selected-as-a-top-reviewer-at-neurips-2025",
+          title: 'Selected as a Top Reviewer at NeurIPS 2025',
+          description: "",
           section: "News",},{id: "projects-phone-mount",
           title: 'phone mount',
           description: "custom fitted for mophie charging puck and my mini cooper",
@@ -75,6 +89,11 @@ ninja.data = [{
           description: "a split ergonomic curved mechanical keyboard",
           section: "Projects",handler: () => {
               window.location.href = "/projects/scylla_keyboard/";
+            },},{id: "projects-understanding-birdcalls",
+          title: 'understanding birdcalls',
+          description: "self-supervised learning of bird behaviors and vocalizations",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/understanding_birdcalls/";
             },},{
         id: 'social-email',
         title: 'email',
