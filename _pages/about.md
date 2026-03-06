@@ -6,7 +6,7 @@ subtitle: <a href='https://www.flyzipline.com/'>Perception Software Engineer @ Z
 
 profile:
   align: right
-  image: profile.jpeg
+  image: profile.jpg
   image_circular: true # crops the image to make it circular
   more_info:
 

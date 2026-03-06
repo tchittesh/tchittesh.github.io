@@ -5,7 +5,7 @@ permalink: /projects/
 description: side quests
 nav: true
 nav_order: 3
-display_categories: [random]
+display_categories: [research, random]
 horizontal: false
 ---
 

@@ -2,7 +2,7 @@
 layout: page
 title: scylla keyboard
 description: a split ergonomic curved mechanical keyboard
-img: assets/img/scylla/scylla_final_rgb.png
+img: assets/img/scylla/scylla_final_rgb.JPG
 importance: 1
 category: random
 related_publications: false
