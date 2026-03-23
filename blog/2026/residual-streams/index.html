@@ -1,0 +1,286 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> A Shallow Perspective on Deep Neural Nets | Chittesh Thavamani </title> <meta name="author" content="Chittesh Thavamani"> <meta name="description" content="Redrawing deep residual networks to reveal their hidden shallow gradient flow"> <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website"> <link rel="stylesheet" href="/assets/css/bootstrap.min.css?a4b3f509e79c54a512b890d73235ef04"> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="/assets/css/academicons.min.css?f0b7046b84e425c55f3463ac249818f5"> <link defer rel="stylesheet" href="/assets/css/scholar-icons.css?62b2ac103a88034e6882a5be5f3e2772"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e"> <link rel="canonical" href="https://tchittesh.github.io/blog/2026/residual-streams/"> <script src="/assets/js/theme.js?a81d82887dd692e91686b43de4542f18"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> <link defer rel="stylesheet" type="text/css" href="/assets/css/tikzjax.min.css?fd53cc8a9145aa7bee785ae5c8f9e79b"> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> <span class="font-weight-bold">Chittesh</span> Thavamani </a> <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse text-right" id="navbarNav"> <ul class="navbar-nav ml-auto flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">publications </a> </li> <li class="nav-item "> <a class="nav-link" href="/projects/">projects </a> </li> <li class="nav-item "> <a class="nav-link" href="/assets/pdf/cv.pdf">cv </a> </li> <li class="nav-item"> <button id="search-toggle" title="Search" onclick="openSearchModal()"> <span class="nav-link">ctrl k <i class="ti ti-search"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" title="Change theme"> <i class="ti ti-sun-moon" id="light-toggle-system"></i> <i class="ti ti-moon-filled" id="light-toggle-dark"></i> <i class="ti ti-sun-filled" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">A Shallow Perspective on Deep Neural Nets</h1> <p class="post-meta"> Created on March 22, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/deep-learning"> <i class="fa-solid fa-hashtag fa-sm"></i> deep-learning</a>   <a href="/blog/tag/transformers"> <i class="fa-solid fa-hashtag fa-sm"></i> transformers</a>   ·   <a href="/blog/category/explainer"> <i class="fa-solid fa-tag fa-sm"></i> explainer</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <style>html[data-theme="dark"] .post-content svg{filter:invert(1)}.footnotes{font-size:.85em;line-height:.85em}.footnotes ol{padding-left:1.5em}.footnotes li{margin-bottom:0}</style> <p>Deep neural networks are usually drawn like this — stacked layer by layer.</p> <script type="text/tikz">
+\begin{document}
+\begin{tikzpicture}[
+  conv/.style={draw, rectangle, rounded corners=2pt, minimum width=1.3cm, minimum height=0.5cm, font=\scriptsize, fill=white},
+  circ/.style={draw, circle, minimum size=0.42cm, inner sep=0pt, font=\footnotesize, fill=white}
+]
+
+\draw[opacity=0] (-1.5, -1) rectangle (3, 13.5);
+
+%% Vertical spacing 3.0cm per block. Conv centers at y = block_base + 1.0 and + 2.0.
+
+\node[circ] (L0) at (0,  0.0) {$+$};
+\node[circ] (L1) at (0,  3.0) {$+$};
+\node[circ] (L2) at (0,  6.0) {$+$};
+\node[circ] (L3) at (0,  9.0) {$+$};
+\node[circ] (L4) at (0, 12.0) {$+$};
+
+\node[conv] (lc00) at (0,  1.0) {BN-ReLU-Conv};
+\node[conv] (lc01) at (0,  2.0) {BN-ReLU-Conv};
+\node[conv] (lc10) at (0,  4.0) {BN-ReLU-Conv};
+\node[conv] (lc11) at (0,  5.0) {BN-ReLU-Conv};
+\node[conv] (lc20) at (0,  7.0) {BN-ReLU-Conv};
+\node[conv] (lc21) at (0,  8.0) {BN-ReLU-Conv};
+\node[conv] (lc30) at (0, 10.0) {BN-ReLU-Conv};
+\node[conv] (lc31) at (0, 11.0) {BN-ReLU-Conv};
+
+\draw[->] (0, -0.55) -- (L0);
+\node[left, font=\small] at (0, -0.55) {$\mathbf{x}_0$};
+
+\draw[->] (L0)   -- (lc00);
+\draw[->] (lc00) -- (lc01);
+\draw[->] (lc01) -- (L1);
+
+\draw[->] (L1)   -- (lc10);
+\draw[->] (lc10) -- (lc11);
+\draw[->] (lc11) -- (L2);
+
+\draw[->] (L2)   -- (lc20);
+\draw[->] (lc20) -- (lc21);
+\draw[->] (lc21) -- (L3);
+
+\draw[->] (L3)   -- (lc30);
+\draw[->] (lc30) -- (lc31);
+\draw[->] (lc31) -- (L4);
+
+\draw[->] (L4) -- (0, 12.6);
+\node[left, font=\small] at (0, 12.6) {$\mathbf{x}_L$};
+
+%% skip arcs (right side, same-x nodes — out=0, in=0 produces a rightward bow)
+\draw[->] (L0.east) to[out=0, in=0, looseness=2.5] (L1.east);
+\draw[->] (L1.east) to[out=0, in=0, looseness=2.5] (L2.east);
+\draw[->] (L2.east) to[out=0, in=0, looseness=2.5] (L3.east);
+\draw[->] (L3.east) to[out=0, in=0, looseness=2.5] (L4.east);
+
+\node[font=\small, align=center] at (0.75, 13.2) {"Deep" ResNet-V2};
+
+\end{tikzpicture}
+\end{document}
+</script> <script type="text/tikz">
+\begin{document}
+\begin{tikzpicture}[
+  block/.style={draw, rectangle, rounded corners=2pt, minimum width=1.3cm, minimum height=0.5cm, font=\scriptsize, fill=white},
+  circ/.style={draw, circle, minimum size=0.42cm, inner sep=0pt, font=\footnotesize, fill=white}
+]
+
+\draw[opacity=0] (-1.5, -1) rectangle (3, 13.5);
+
+%% 7 sum nodes, spacing 2.0cm
+\node[circ] (L0) at (0,  0) {$+$};
+\node[circ] (L1) at (0,  2) {$+$};
+\node[circ] (L2) at (0,  4) {$+$};
+\node[circ] (L3) at (0,  6) {$+$};
+\node[circ] (L4) at (0,  8) {$+$};
+\node[circ] (L5) at (0, 10) {$+$};
+\node[circ] (L6) at (0, 12) {$+$};
+
+%% 6 sublayer boxes alternating LN-Attn / LN-MLP
+\node[block] (s0) at (0,  1) {LN-Attn};
+\node[block] (s1) at (0,  3) {LN-MLP};
+\node[block] (s2) at (0,  5) {LN-Attn};
+\node[block] (s3) at (0,  7) {LN-MLP};
+\node[block] (s4) at (0,  9) {LN-Attn};
+\node[block] (s5) at (0, 11) {LN-MLP};
+
+%% Input
+\draw[->] (0, -0.55) -- (L0);
+\node[left, font=\small] at (0, -0.55) {$\mathbf{x}_0$};
+
+%% Vertical connections through sublayers
+\draw[->] (L0) -- (s0);
+\draw[->] (s0) -- (L1);
+\draw[->] (L1) -- (s1);
+\draw[->] (s1) -- (L2);
+\draw[->] (L2) -- (s2);
+\draw[->] (s2) -- (L3);
+\draw[->] (L3) -- (s3);
+\draw[->] (s3) -- (L4);
+\draw[->] (L4) -- (s4);
+\draw[->] (s4) -- (L5);
+\draw[->] (L5) -- (s5);
+\draw[->] (s5) -- (L6);
+
+%% Output
+\draw[->] (L6) -- (0, 12.6);
+\node[left, font=\small] at (0, 12.6) {$\mathbf{x}_L$};
+
+%% Skip arcs (right side)
+\draw[->] (L0.east) to[out=0, in=0, looseness=2.5] (L1.east);
+\draw[->] (L1.east) to[out=0, in=0, looseness=2.5] (L2.east);
+\draw[->] (L2.east) to[out=0, in=0, looseness=2.5] (L3.east);
+\draw[->] (L3.east) to[out=0, in=0, looseness=2.5] (L4.east);
+\draw[->] (L4.east) to[out=0, in=0, looseness=2.5] (L5.east);
+\draw[->] (L5.east) to[out=0, in=0, looseness=2.5] (L6.east);
+
+\node[font=\small, align=center] at (0.75, 13.2) {"Deep" Pre-LN Transformer};
+
+\end{tikzpicture}
+\end{document}
+</script> <p>But we can redraw the same computation with all the blocks running in parallel… and the topology now looks shallow!</p> <script type="text/tikz">
+\begin{document}
+\begin{tikzpicture}[
+  conv/.style={draw, rectangle, rounded corners=2pt, minimum width=1.3cm, minimum height=0.5cm, font=\scriptsize, fill=white},
+  circ/.style={draw, circle, minimum size=0.42cm, inner sep=0pt, font=\footnotesize, fill=white}
+]
+
+\draw[opacity=0] (-1.5, -1) rectangle (16, 6);
+
+\node[conv] (lc00) at (2.0,  2.0) {BN-ReLU-Conv};
+\node[conv] (lc01) at (2.0,  3.0) {BN-ReLU-Conv};
+\node[conv] (lc10) at (6.0,  2.0) {BN-ReLU-Conv};
+\node[conv] (lc11) at (6.0,  3.0) {BN-ReLU-Conv};
+\node[conv] (lc20) at (10.0,  2.0) {BN-ReLU-Conv};
+\node[conv] (lc21) at (10.0,  3.0) {BN-ReLU-Conv};
+\node[conv] (lc30) at (14.0,  2.0) {BN-ReLU-Conv};
+\node[conv] (lc31) at (14.0,  3.0) {BN-ReLU-Conv};
+
+\node[circ] (L0) at (0.0,  4.0) {$+$};
+\node[circ] (L1) at (6.0,  1.0) {$+$};
+\node[circ] (L2) at (10.0,  1.0) {$+$};
+\node[circ] (L3) at (14.0,  1.0) {$+$};
+
+%% 1. Upward arrows between the two conv layers in each block
+\draw[->] (lc00) -- (lc01);
+\draw[->] (lc10) -- (lc11);
+\draw[->] (lc20) -- (lc21);
+\draw[->] (lc30) -- (lc31);
+
+%% 2. Curved arrows from top of each block's upper conv layer back to L0.
+%% Both control points sit at y=4.0 so the bezier stays at or below y=4
+%% and arrives at L0 horizontally (tangent to y=4).
+\draw[->] (lc01.north) .. controls (2.0, 4.0) and (1.0, 4.0)  .. (L0);
+\draw[->] (lc11.north) .. controls (6.0, 4.0) and (3.0, 4.0)  .. (L0);
+\draw[->] (lc21.north) .. controls (10.0, 4.0) and (5.0, 4.0) .. (L0);
+\draw[->] (lc31.north) .. controls (14.0, 4.0) and (7.0, 4.0) .. (L0);
+
+%% 3. Upward arrows from junction nodes to the first conv layer above each
+\draw[->] (L1) -- (lc10);
+\draw[->] (L2) -- (lc20);
+\draw[->] (L3) -- (lc30);
+
+%% 4. Curved arrows from top of lcx1 to the left of L(x+1).
+%% Each arrow is split into 3 segments so the curve passes through
+%% the midpoint between lcx1/lc(x+1)1 at y=3.0, then the midpoint
+%% between lcx0/lc(x+1)0 at y=2.0, then down to L(x+1).west.
+\draw[->] (lc01.north)
+  .. controls (2.5, 3.8) and (4.0, 3.5) .. (4.0, 3.0)
+  -- (4.0, 2.0)
+  .. controls (4.0, 1.5) and (4.0, 1.0) .. (L1.west);
+\draw[->] (lc11.north)
+  .. controls (6.5, 3.8) and (8.0, 3.5) .. (8.0, 3.0)
+  -- (8.0, 2.0)
+  .. controls (8.0, 1.5) and (8.0, 1.0) .. (L2.west);
+\draw[->] (lc21.north)
+  .. controls (10.5, 3.8) and (12.0, 3.5) .. (12.0, 3.0)
+  -- (12.0, 2.0)
+  .. controls (12.0, 1.5) and (12.0, 1.0) .. (L3.west);
+
+%% 5. Input at (0,0): one branch up-right to lc00, one branch to lc00 computation start.
+\draw[->] (0, 0.5) -- (L0.south);
+\node[left, font=\small] at (0, 0.5) {$\mathbf{x}_0$};
+
+%% Input feeds block 0's first conv
+\draw[->] (0, 1) to[out=0, in=270] (lc00.south);
+
+%% 6. Residual/skip arrows (identity path bypassing each block).
+%% Skip block 0: x_0 straight to L1
+\draw[->] (0, 1) -- (L1.west);
+%% Skip block 1: L1 to L2 (horizontal)
+\draw[->] (L1.east) -- (L2.west);
+%% Skip block 2: L2 to L3 (horizontal)
+\draw[->] (L2.east) -- (L3.west);
+
+%% Output from L0
+\draw[->] (L0.north) -- (0, 5.0);
+\node[left, font=\small] at (0, 5.0) {$\mathbf{x}_L$};
+
+\node[font=\small, align=center] at (7.0, 5.6) {"Shallow" ResNet-V2};
+
+\end{tikzpicture}
+\end{document}
+</script> <script type="text/tikz">
+\begin{document}
+\begin{tikzpicture}[
+  block/.style={draw, rectangle, rounded corners=2pt, minimum width=1.1cm, minimum height=0.5cm, font=\scriptsize, fill=white},
+  circ/.style={draw, circle, minimum size=0.42cm, inner sep=0pt, font=\footnotesize, fill=white}
+]
+
+\draw[opacity=0] (-1.5, -0.5) rectangle (19, 5.0);
+
+%% 6 sublayer boxes (single box per column) at y=2
+\node[block] (s0) at (2.0,  2.0) {LN-Attn};
+\node[block] (s1) at (5.0,  2.0) {LN-MLP};
+\node[block] (s2) at (8.0,  2.0) {LN-Attn};
+\node[block] (s3) at (11.0, 2.0) {LN-MLP};
+\node[block] (s4) at (14.0, 2.0) {LN-Attn};
+\node[block] (s5) at (17.0, 2.0) {LN-MLP};
+
+%% Output sum node and junction nodes
+\node[circ] (L0) at (0.0, 3.0) {$+$};
+\node[circ] (L1) at (5.0, 1.0) {$+$};
+\node[circ] (L2) at (8.0, 1.0) {$+$};
+\node[circ] (L3) at (11.0, 1.0) {$+$};
+\node[circ] (L4) at (14.0, 1.0) {$+$};
+\node[circ] (L5) at (17.0, 1.0) {$+$};
+
+%% 1. Upward arrows from junction nodes to sublayer boxes above
+\draw[->] (L1) -- (s1);
+\draw[->] (L2) -- (s2);
+\draw[->] (L3) -- (s3);
+\draw[->] (L4) -- (s4);
+\draw[->] (L5) -- (s5);
+
+%% 2. Curved arrows from sublayer tops back to L0 (output sum).
+%% Both control points at y=3.0 so curves stay at or below y=3.
+\draw[->] (s0.north) .. controls (2.0, 3.0) and (1.0, 3.0)   .. (L0);
+\draw[->] (s1.north) .. controls (5.0, 3.0) and (2.0, 3.0)   .. (L0);
+\draw[->] (s2.north) .. controls (8.0, 3.0) and (3.0, 3.0)   .. (L0);
+\draw[->] (s3.north) .. controls (11.0, 3.0) and (4.0, 3.0)  .. (L0);
+\draw[->] (s4.north) .. controls (14.0, 3.0) and (5.0, 3.0)  .. (L0);
+\draw[->] (s5.north) .. controls (17.0, 3.0) and (6.0, 3.0)  .. (L0);
+
+%% 3. Curved arrows from sublayer tops to next junction node.
+%% Each passes through the midpoint x between adjacent columns.
+\draw[->] (s0.north)
+  .. controls (2.5, 2.8) and (3.5, 2.5) .. (3.5, 2.0)
+  .. controls (3.5, 1.5) and (3.5, 1.0) .. (L1.west);
+\draw[->] (s1.north)
+  .. controls (5.5, 2.8) and (6.5, 2.5) .. (6.5, 2.0)
+  .. controls (6.5, 1.5) and (6.5, 1.0) .. (L2.west);
+\draw[->] (s2.north)
+  .. controls (8.5, 2.8) and (9.5, 2.5) .. (9.5, 2.0)
+  .. controls (9.5, 1.5) and (9.5, 1.0) .. (L3.west);
+\draw[->] (s3.north)
+  .. controls (11.5, 2.8) and (12.5, 2.5) .. (12.5, 2.0)
+  .. controls (12.5, 1.5) and (12.5, 1.0) .. (L4.west);
+\draw[->] (s4.north)
+  .. controls (14.5, 2.8) and (15.5, 2.5) .. (15.5, 2.0)
+  .. controls (15.5, 1.5) and (15.5, 1.0) .. (L5.west);
+
+%% 4. Input x_0
+\draw[->] (0, 0.5) -- (L0.south);
+\node[left, font=\small] at (0, 0.5) {$\mathbf{x}_0$};
+
+%% Input feeds first sublayer
+\draw[->] (0, 1) to[out=0, in=270] (s0.south);
+
+%% 5. Residual/skip arrows (identity path along y=1)
+\draw[->] (0, 1) -- (L1.west);
+\draw[->] (L1.east) -- (L2.west);
+\draw[->] (L2.east) -- (L3.west);
+\draw[->] (L3.east) -- (L4.west);
+\draw[->] (L4.east) -- (L5.west);
+
+%% 6. Output from L0
+\draw[->] (L0.north) -- (0, 4.0);
+\node[left, font=\small] at (0, 4.0) {$\mathbf{x}_L$};
+
+\node[font=\small, align=center] at (8.75, 4.7) {"Shallow" Pre-LN Transformer};
+
+\end{tikzpicture}
+\end{document}
+</script> <p>In this parallel view, every block has a direct subpath from input to output in just one hop regardless of the total depth of the network. These shallower routes for gradient flow help explain how this structure addresses the vanishing gradient problem to stabilize and speed up model training.</p> <p>It’s worth noting that deep neural networks weren’t always like this. Early ResNets<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> placed ReLUs, and early Transformers<sup id="fnref:2"><a href="#fn:2" class="footnote" rel="footnote" role="doc-noteref">2</a></sup> placed LayerNorms, between residuals, both of which “pollute” the residual stream and the backward gradient flows. The fact that modern variants across language modeling and computer vision (Pre-LN Transformer<sup id="fnref:3"><a href="#fn:3" class="footnote" rel="footnote" role="doc-noteref">3</a></sup>, ResNet-V2<sup id="fnref:4"><a href="#fn:4" class="footnote" rel="footnote" role="doc-noteref">4</a></sup>, ConvNeXt<sup id="fnref:5"><a href="#fn:5" class="footnote" rel="footnote" role="doc-noteref">5</a></sup>) have converged to this (more elegant) design seems highly statistically significant.</p> <p>Of course, now frontier labs are experimenting with mechanisms like mHC and attention residuals to improve on the limitations of the current paradigm, such as exploding activations. Does this parallel view visualization extend to those architectures?</p> <p><strong>References</strong></p> <div class="footnotes" role="doc-endnotes"> <ol> <li id="fn:1"> <p>He et al., <a href="https://arxiv.org/abs/1512.03385" rel="external nofollow noopener" target="_blank">Deep Residual Learning for Image Recognition</a>, CVPR 2016. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">↩</a></p> </li> <li id="fn:2"> <p>Vaswani et al., <a href="https://arxiv.org/abs/1706.03762" rel="external nofollow noopener" target="_blank">Attention Is All You Need</a>, NeurIPS 2017. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">↩</a></p> </li> <li id="fn:3"> <p>Xiong et al., <a href="https://arxiv.org/abs/2002.04745" rel="external nofollow noopener" target="_blank">On Layer Normalization in the Transformer Architecture</a>, ICML 2020. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">↩</a></p> </li> <li id="fn:4"> <p>He et al., <a href="https://arxiv.org/abs/1603.05027" rel="external nofollow noopener" target="_blank">Identity Mappings in Deep Residual Networks</a>, ECCV 2016. <a href="#fnref:4" class="reversefootnote" role="doc-backlink">↩</a></p> </li> <li id="fn:5"> <p>Liu et al., <a href="https://arxiv.org/abs/2201.03545" rel="external nofollow noopener" target="_blank">A ConvNet for the 2020s</a>, CVPR 2022. <a href="#fnref:5" class="reversefootnote" role="doc-backlink">↩</a></p> </li> </ol> </div> </div> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Chittesh Thavamani. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme and <a href="https://catppuccin.com/" rel="external nofollow noopener" target="_blank">catppuccin</a> colors. </div> </footer> <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> <script src="/assets/js/bootstrap.bundle.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?a0db7e5d5c70cc3252b3138b0c91dcaf" type="text/javascript"></script> <script defer src="/assets/js/tikzjax.min.js?32ae771474611c1ece3b56767307fd31" type="text/javascript"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/js/zoom.js?85ddb88934d28b74e78031fd54cf8308"></script> <script src="/assets/js/no_defer.js?2781658a0a2b13ed609542042a859126"></script> <script defer src="/assets/js/common.js?e0514a05c5c95ac1a93a8dfd5249b92e"></script> <script defer src="/assets/js/copy_code.js?c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?d9f17b6adc2311cbabd747f4538bb15f"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/js/mathjax-setup.js?a5bb4e6a542c546dd929b24b8b236dfd"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script defer src="/assets/js/progress-bar.js?2f30e0e6801ea8f5036fa66e1ab0a71a" type="text/javascript"></script> <script src="/assets/js/vanilla-back-to-top.min.js?f40d453793ff4f64e238e420181a1d17"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/js/search/ninja-keys.min.js?a3446f084dcaecc5f75aa1757d087dcf"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/js/search-setup.js?6c304f7b1992d4b60f7a07956e52f04a"></script> <script src="/assets/js/search-data.js"></script> <script src="/assets/js/shortcut-key.js?6f508d74becd347268a7f822bca7309d"></script> </body> </html>

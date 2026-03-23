@@ -37,7 +37,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/assets/pdf/cv.pdf";
           },
-        },{id: "post-understanding-birdcalls-data-collection-prototype",
+        },{id: "post-a-shallow-perspective-on-deep-neural-nets",
+        
+          title: "A Shallow Perspective on Deep Neural Nets",
+        
+        description: "Redrawing deep residual networks to reveal their hidden shallow gradient flow",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/residual-streams/";
+          
+        },
+      },{id: "post-understanding-birdcalls-data-collection-prototype",
         
           title: "Understanding Birdcalls: Data Collection Prototype",
         
