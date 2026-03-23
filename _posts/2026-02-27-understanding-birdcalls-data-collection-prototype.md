@@ -8,7 +8,7 @@ categories: projects
 related_posts: false
 ---
 
-*This is the first update for the [understanding birdcalls](/projects/understanding_birdcalls) project. See the [project page](/projects/understanding_birdcalls) for more context.*
+_This is the first update for the [understanding birdcalls](/projects/understanding_birdcalls) project. See the [project page](/projects/understanding_birdcalls) for more context._
 
 ## Progress
 
@@ -63,10 +63,12 @@ A first test session captured about 50 seconds of synchronized audio and video (
 ## Next Steps
 
 Here's what I want to tackle next:
+
 - attach RPi and power bank to tripod for more portability
 - collect and process actual birdcall data!
 
 Some thoughts in the back of my mind:
+
 - How can I calibrate the extrinsics of the camera with respect to the microphone array? Will it be important to also finetune the microphone locations (from the CAD expected values) and gains as part of calibration?
 - Will reflections be a problem in my backyard? If so, how can I deal with them?
 - How will acoustic beamforming for sound separation compare with learned approaches like [SAM-Audio](https://ai.meta.com/research/samaudio/), [biodenoising](https://github.com/earthspecies/biodenoising-inference), and [BioCPPNet](https://github.com/earthspecies/cocktail-party-problem)?

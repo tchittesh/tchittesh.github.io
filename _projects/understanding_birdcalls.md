@@ -20,7 +20,7 @@ In this project, I attempt to do some smaller scale research in my backyard.
 
 Meaning must be grounded in the real world. As a result, to understand birdcalls, we must first collect a large multimodal dataset.
 
-**Step 1: Capture a 4D light and sound field.** Using a synchronized camera and microphone array, I record the full spatial audio-visual scene of the backyard. The goal is to be as rich as possible at the data capture stage. The more structure we can extract from sensors, the less the model has to infer from scratch. Postprocessing extracts per-animal tracks in both image space (bounding boxes, poses) and audio space ([beamformed](https://pysdr.org/content/doa.html) source locations, separated vocalizations), building a continuous, synchronized record of *who is where, doing what, and saying what*, at each moment in time.
+**Step 1: Capture a 4D light and sound field.** Using a synchronized camera and microphone array, I record the full spatial audio-visual scene of the backyard. The goal is to be as rich as possible at the data capture stage. The more structure we can extract from sensors, the less the model has to infer from scratch. Postprocessing extracts per-animal tracks in both image space (bounding boxes, poses) and audio space ([beamformed](https://pysdr.org/content/doa.html) source locations, separated vocalizations), building a continuous, synchronized record of _who is where, doing what, and saying what_, at each moment in time.
 
 **Step 2: Train a self-supervised model.** With a sufficiently rich multimodal dataset, the hope is that a self-supervised model can discover structure that is invisible to human observers. I expect that two pieces will be important here: (1) training a performant self-supervised model that minimizes some form of prediction error and (2) using mechanistic interpretibility methods like [sparse autoencoders](https://transformer-circuits.pub/2023/monosemantic-features/index.html) and circuit discovery to understand what the model has learned. Could we recover concepts like "family", "squirrel", "food", and derivative higher-order meanings like "hunger = want food"?
 
@@ -31,6 +31,7 @@ Meaning must be grounded in the real world. As a result, to understand birdcalls
 {% assign nature_posts = site.posts | where_exp: "post", "post.tags contains 'decoding-animal-communication'" %}
 {% if nature_posts.size > 0 %}
 {% for post in nature_posts %}
+
 <details>
   <summary>{{ post.date | date: "%b %-d, %Y" }} — <a href="{{ post.url }}">{{ post.title }}</a></summary>
   <div style="padding: 0.75rem 0 0.5rem 1rem; border-left: 2px solid #ddd;">
