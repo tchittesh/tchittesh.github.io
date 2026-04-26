@@ -16,6 +16,7 @@ What if we could use recent advances in self-supervised learning to associate vo
 This is not a new idea. Organizations like [Project CETI](https://www.projectceti.org/) and [Earth Species Project](https://www.earthspecies.org/) are making good headway in similar efforts to decode animal communication.
 In this project, I attempt to do some smaller scale research in my backyard.
 
+
 ## Research Plan
 
 Meaning must be grounded in the real world. As a result, to understand birdcalls, we must first collect a large multimodal dataset.
@@ -25,6 +26,12 @@ Meaning must be grounded in the real world. As a result, to understand birdcalls
 **Step 2: Train a self-supervised model.** With a sufficiently rich multimodal dataset, the hope is that a self-supervised model can discover structure that is invisible to human observers. I expect that two pieces will be important here: (1) training a performant self-supervised model that minimizes some form of prediction error and (2) using mechanistic interpretibility methods like [sparse autoencoders](https://transformer-circuits.pub/2023/monosemantic-features/index.html) and circuit discovery to understand what the model has learned. Could we recover concepts like "family", "squirrel", "food", and derivative higher-order meanings like "hunger = want food"?
 
 **Goal: Discover something new.** Decoding birdcalls would be a remarkable outcome, but the model isn't necessarily limited to that. It might instead surface patterns in flock movement, social hierarchies, or territorial behavior. The goal of this project is to use the above data-driven self-supervised approach to discover any insight that is beyond the limits of current human knowledge.
+
+<figure style="margin:1.5rem auto;width:100%;">
+  <video src="/assets/video/wild_robot_language.mp4" autoplay controls muted playsinline style="width:100%;display:block;"></video>
+  <figcaption style="text-align:center;font-style:italic;font-size:0.9em;margin-top:0.5rem;">This is what I want to do, in a nutshell. (Clip from <a href="https://en.wikipedia.org/wiki/The_Wild_Robot">The Wild Robot</a>, © 2024 DreamWorks Animation.)</figcaption>
+</figure>
+
 
 ## Updates
 
